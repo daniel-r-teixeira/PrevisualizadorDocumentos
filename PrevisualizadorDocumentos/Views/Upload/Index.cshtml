@@ -30,7 +30,6 @@
                 <th>Tipo</th>
                 <th>Visualizar</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -39,9 +38,6 @@
                 <tr>
                     <td>@f</td>
                     <td>@System.IO.Path.GetExtension(f)</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" onclick="previsualizarFicheiro('@f')">visualizar</button>
-                    </td>
                     <td>
                         <button class="btn btn-primary btn-sm" onclick="downloadFile('@f')">download</button>
                     </td>                    
@@ -70,23 +66,6 @@
 </div>
 
 <script>
-    function previsualizarFicheiro(fileName) {
-        const ext = fileName.split('.').pop().toLowerCase();
-        const url = `/Upload/Previsualizar?file=${encodeURIComponent(fileName)}`;
-        let html = '';
-
-        if (['jpg', 'jpeg', 'png', 'tif', 'tiff'].includes(ext)) {
-            html = `<img src="${url}" class="img-fluid" alt="Pré-visualização de imagem" />`;
-        } else if (ext === 'pdf') {
-            html = `<iframe src="${url}" width="100%" height="600px" frameborder="0"></iframe>`;
-        } else {
-            html = `<a href="${url}" target="_blank" class="btn btn-secondary">Download</a>`;
-        }
-
-        document.getElementById('previewContent').innerHTML = html;
-        new bootstrap.Modal(document.getElementById('previewModal')).show();
-    }
-
     function downloadFile(fileName) {
         const ext = fileName.split('.').pop().toLowerCase();
         const url = `/Upload/Download?file=${encodeURIComponent(fileName)}`;
